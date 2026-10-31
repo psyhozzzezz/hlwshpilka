@@ -5,223 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>типа с хелуинчиком</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
-    }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    font-family: -apple-system, 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
 
-    .scene {
-      position: relative;
-      text-align: center;
-      padding: 20px;
-    }
+  .scene {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+  }
 
-    /* Луна */
-    .moon {
-      position: absolute;
-      top: -120px;
-      right: -60px;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #fff8d6, #f5d76e);
-      box-shadow: 0 0 60px 20px rgba(245, 215, 110, 0.4);
-      animation: glow 3s ease-in-out infinite alternate;
-    }
+  /* Луна — без анимации */
+  .moon {
+    position: absolute;
+    top: -120px;
+    right: -60px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8d6, #f5d76e);
+    box-shadow: 0 0 40px 10px rgba(245, 215, 110, 0.35);
+  }
 
-    @keyframes glow {
-      from { box-shadow: 0 0 40px 10px rgba(245, 215, 110, 0.3); }
-      to   { box-shadow: 0 0 80px 25px rgba(245, 215, 110, 0.6); }
-    }
+  /* Мыши — статично, без полёта */
+  .bat {
+    position: absolute;
+    font-size: 26px;
+    opacity: 0.8;
+  }
+  .bat1 { top: 30px; left: 10px; }
+  .bat2 { top: 80px; left: 30px; font-size: 18px; }
+  .bat3 { top: 10px; left: 60px; font-size: 32px; }
 
-    /* Мыши */
-    .bat {
-      position: absolute;
-      font-size: 28px;
-      animation: fly 8s linear infinite;
-      opacity: 0.85;
-    }
-    .bat1 { top: 30px; left: -60px; animation-delay: 0s; }
-    .bat2 { top: 90px; left: -60px; animation-delay: 2.5s; font-size: 20px; }
-    .bat3 { top: 10px; left: -60px; animation-delay: 5s; font-size: 34px; }
-
-    @keyframes fly {
-      0%   { transform: translateX(0) translateY(0) rotate(-10deg); }
-      50%  { transform: translateX(350px) translateY(-40px) rotate(10deg); }
-      100% { transform: translateX(700px) translateY(0) rotate(-10deg); }
-    }
-
-    /* Тыква */
-    .pumpkin {
-      position: relative;
-      width: 220px;
-      height: 200px;
-      margin: 0 auto 30px;
-      cursor: pointer;
-      animation: float 3s ease-in-out infinite, pulseGlow 4s ease-in-out infinite;
-      transition: transform 0.2s;
-    }
-    .pumpkin:hover  { transform: scale(1.04); }
-    .pumpkin:active { transform: scale(0.96); }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-12px); }
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% {
-        filter:
-          drop-shadow(0 0 18px rgba(255,255,255,0.8))
-          drop-shadow(0 0 50px rgba(255,255,255,0.5))
-          drop-shadow(0 0 100px rgba(255,255,255,0.3));
-      }
-      50% {
-        filter:
-          drop-shadow(0 0 28px rgba(255,255,255,1))
-          drop-shadow(0 0 90px rgba(255,255,255,0.7))
-          drop-shadow(0 0 160px rgba(255,255,255,0.45));
-      }
-    }
-
-    .body {
-      position: absolute;
-      inset: 0;
-      border-radius: 50% 50% 48% 48% / 58% 58% 42% 42%;
-      background: radial-gradient(ellipse at 50% 35%, #ffb347 0%, #ff8c1a 35%, #e36414 65%, #a63c00 100%);
-      overflow: hidden;
-      box-shadow:
-        inset -20px -20px 40px rgba(120, 40, 0, 0.6),
-        inset 15px 15px 35px rgba(255, 210, 120, 0.5);
-    }
-
-    .rib {
-      position: absolute;
-      top: -5%;
-      height: 110%;
-      width: 40%;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(120, 40, 0, 0.55) 0%, rgba(120, 40, 0, 0) 70%);
-      pointer-events: none;
-    }
-    .rib:nth-child(1) { left: -8%; width: 45%; }
-    .rib:nth-child(2) { left: 12%; }
-    .rib:nth-child(3) { left: 30%; background: radial-gradient(ellipse at center, rgba(255,220,150,0.45) 0%, transparent 70%); width: 40%; }
-    .rib:nth-child(4) { left: 50%; }
-    .rib:nth-child(5) { left: 70%; }
-
-    .stem {
-      position: absolute;
-      top: -22px;
-      left: 50%;
-      transform: translateX(-50%) rotate(6deg);
-      width: 20px;
-      height: 34px;
-      background: linear-gradient(90deg, #3d6b23, #5c9c33, #3d6b23);
-      border-radius: 6px 6px 3px 3px;
-      z-index: 3;
-      box-shadow: inset -3px 0 4px rgba(0,0,0,0.4);
-    }
-
-    .face { position: absolute; inset: 0; z-index: 2; }
-
-    .eye {
-      position: absolute;
-      top: 62px;
-      width: 0;
-      height: 0;
-      border-left: 22px solid transparent;
-      border-right: 22px solid transparent;
-      border-bottom: 28px solid #ffd23f;
-      filter: drop-shadow(0 0 10px #ff8c00) drop-shadow(0 0 20px #ff6b00);
-      animation: flicker 3s infinite alternate;
-    }
-    .eye.left  { left: 42px;  transform: rotate(-8deg); }
-    .eye.right { right: 42px; transform: rotate(8deg); }
-
-    .nose {
-      position: absolute;
-      top: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-bottom: 14px solid #ffd23f;
-      filter: drop-shadow(0 0 8px #ff8c00);
-      animation: flicker 3s infinite alternate;
-    }
-
-    .mouth {
-      position: absolute;
-      bottom: 38px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 34px;
-      background: #ffd23f;
-      clip-path: polygon(
-        0% 0%, 12% 55%, 24% 0%, 36% 55%, 48% 0%,
-        60% 55%, 72% 0%, 84% 55%, 100% 0%,
-        100% 100%, 0% 100%
-      );
-      filter: drop-shadow(0 0 10px #ff8c00) drop-shadow(0 0 20px #ff6b00);
-      animation: flicker 3s infinite alternate;
-    }
-
-    @keyframes flicker {
-      0%   { opacity: 0.85; }
-      50%  { opacity: 1; }
-      100% { opacity: 0.9; }
-    }
-
-    .glow {
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: radial-gradient(circle at 50% 55%, rgba(255, 200, 80, 0.35) 0%, transparent 60%);
-      animation: flicker 3s infinite alternate;
-      pointer-events: none;
-    }
-
-    /* Текст */
-    .title {
-      color: #f5d76e;
-      font-size: 28px;
-      margin-bottom: 10px;
-      text-shadow: 0 0 15px rgba(245, 215, 110, 0.6);
-    }
-
-    .hint {
-      color: #b39ddb;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
-    .message {
-      color: #fff;
-      max-width: 300px;
-      margin: 0 auto;
-      font-size: 16px;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.5s ease;
-      line-height: 1.4;
-    }
-
-    .message.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  /* Тыква — лёгкое свечение через box-shadow, без drop-shadow и анимаций */
+  .pumpkin {
+    position: relative;
+    width: 200px;
+    height: 180px;
+    margin: 0 auto 30px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow:
+      0 0 25px 8px rgba(255,255,255,0.7),
+      0 0 60px 20px rgba(255,255,255,0.35);
+    transition: transform 0.15s;
+  }
 </head>
 <body>
 
